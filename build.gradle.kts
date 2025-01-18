@@ -42,12 +42,13 @@ configure<BukkitPluginDescription> {
     website = "https://github.com/ringoame196-s-mcPlugin"
 
     commands {
-        register("testvc") {
+        register("teamvc") {
             description = "teamVCコマンド"
             usage = "/teamvc <join,leave>"
         }
-        register("testvcmanager") {
+        register("teamvcmanager") {
             description = "teamVC管理コマンド"
+            permission = "op"
             usage = "/teammanager <add,remove>"
         }
 
