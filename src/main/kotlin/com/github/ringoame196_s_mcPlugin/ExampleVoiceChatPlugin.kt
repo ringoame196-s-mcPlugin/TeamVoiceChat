@@ -4,6 +4,11 @@ import de.maxhenkel.voicechat.api.VoicechatApi
 import de.maxhenkel.voicechat.api.VoicechatPlugin
 import de.maxhenkel.voicechat.api.events.EventRegistration
 import de.maxhenkel.voicechat.api.events.MicrophonePacketEvent
+import net.md_5.bungee.api.ChatMessageType
+import net.md_5.bungee.api.chat.TextComponent
+import org.bukkit.Bukkit
+import org.bukkit.ChatColor
+import org.bukkit.entity.Player
 
 class ExampleVoiceChatPlugin : VoicechatPlugin {
     /**
@@ -29,8 +34,34 @@ class ExampleVoiceChatPlugin : VoicechatPlugin {
      */
 
     override fun registerEvents(registration: EventRegistration?) {
-        // registration?.registerEvent(MicrophonePacketEvent::class.java, this::onMicrophonePacket)
+        registration?.registerEvent(MicrophonePacketEvent::class.java, this::onMicrophonePacket)
     }
 
-    private fun onMicrophonePacket(e: MicrophonePacketEvent) {}
+    private fun onMicrophonePacket(e: MicrophonePacketEvent) {
+        e.senderConnection ?: return
+        val api = e.voicechat ?: return
+        val player = e.senderConnection?.player?.player as? Player ?: return
+        if (!TeamVCManager.isContainsTeamVC(player)) return
+        val teamName = TeamManager.acquisitionTeamName(player) ?: return
+        val soundPacket = e.packet.toStaticSoundPacket()
+
+        if (Data.isExternalMute) {
+            // configで 外部ミュートをtrueにしていた場合 キャンセルする
+            e.cancel()
+        }
+
+        var c = 0
+        val listenMessage = "${ChatColor.GOLD}[チームVC] ${player.name}が発言中"
+        for (onlinePlayer in Bukkit.getOnlinePlayers()) {
+            if (onlinePlayer == player) continue
+            if (!TeamManager.isInTeam(teamName, onlinePlayer)) continue
+            val onlineConnection = api.getConnectionOf(onlinePlayer.uniqueId) ?: continue
+            api.sendStaticSoundPacketTo(onlineConnection, soundPacket)
+            onlinePlayer.spigot().sendMessage(ChatMessageType.ACTION_BAR, *TextComponent.fromLegacyText(listenMessage))
+            c ++
+        }
+
+        val speakerMessage = "${ChatColor.YELLOW}[チームVC] ${c}人が聞いています"
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, *TextComponent.fromLegacyText(speakerMessage))
+    }
 }
