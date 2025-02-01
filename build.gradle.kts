@@ -44,14 +44,16 @@ configure<BukkitPluginDescription> {
     commands {
         register("teamvc") {
             description = "teamVCコマンド"
-            usage = "/teamvc <join,leave>"
+            permission = "TeamVoiceChat.teamvc"
+            usage = "/teamvc [<join,leave>] [ターゲット]"
         }
-        register("teamvcmanager") {
-            description = "teamVC管理コマンド"
-            permission = "op"
-            usage = "/teammanager <add,remove>"
-        }
+    }
 
+    permissions{
+        register("TeamVoiceChat.teamvc") {
+            description = "itemNameコマンドの実行を許可する"
+            default = BukkitPluginDescription.Permission.Default.OP // TRUE, FALSE, OP or NOT_OP
+        }
     }
 }
 
