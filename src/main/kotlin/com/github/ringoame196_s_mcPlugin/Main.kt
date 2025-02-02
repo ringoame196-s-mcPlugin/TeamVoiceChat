@@ -7,13 +7,18 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
     private val voicechatPlugin = ExampleVoiceChatPlugin()
+    private val plugin = this
 
     override fun onEnable() {
         super.onEnable()
-        getCommand(CommandConst.COMMAND_NAME)?.setExecutor(Command())
+        saveDefaultConfig() // configファイル生成
+        TeamVCManager.setOnlyTeamVoice(plugin)
+
+        getCommand(CommandConst.COMMAND_NAME)?.setExecutor(Command(plugin))
 
         val service: BukkitVoicechatService? = server.servicesManager.load(BukkitVoicechatService::class.java)
 
+        // voiceChatPluginを登録
         if (service != null) {
             service.registerPlugin(voicechatPlugin)
             logger.info("Successfully registered example plugin")

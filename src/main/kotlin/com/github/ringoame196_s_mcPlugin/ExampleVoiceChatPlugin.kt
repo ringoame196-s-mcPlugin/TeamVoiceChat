@@ -45,7 +45,7 @@ class ExampleVoiceChatPlugin : VoicechatPlugin {
         val teamName = TeamManager.acquisitionTeamName(player) ?: return
         val soundPacket = e.packet.toStaticSoundPacket()
 
-        if (Data.isExternalMute) {
+        if (Data.onlyTeamVoice) {
             // configで 外部ミュートをtrueにしていた場合 キャンセルする
             e.cancel()
         }

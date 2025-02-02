@@ -4,5 +4,5 @@ import org.bukkit.entity.Player
 
 object Data {
     val containsTeamVCPlayerList = mutableListOf<Player>() // チームVC使用中のプレイヤーリスト
-    var isExternalMute: Boolean = true
+    var onlyTeamVoice: Boolean = true
 }
