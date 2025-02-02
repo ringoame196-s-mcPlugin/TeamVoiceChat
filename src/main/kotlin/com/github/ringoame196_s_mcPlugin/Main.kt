@@ -2,6 +2,7 @@ package com.github.ringoame196_s_mcPlugin
 
 import com.github.ringoame196_s_mcPlugin.commands.Command
 import com.github.ringoame196_s_mcPlugin.commands.CommandConst
+import com.github.ringoame196_s_mcPlugin.managers.TeamVCManager
 import de.maxhenkel.voicechat.api.BukkitVoicechatService
 import org.bukkit.plugin.java.JavaPlugin
 

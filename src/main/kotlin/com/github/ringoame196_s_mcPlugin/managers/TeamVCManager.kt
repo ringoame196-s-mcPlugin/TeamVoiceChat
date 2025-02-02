@@ -1,5 +1,6 @@
-package com.github.ringoame196_s_mcPlugin
+package com.github.ringoame196_s_mcPlugin.managers
 
+import com.github.ringoame196_s_mcPlugin.Data
 import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 

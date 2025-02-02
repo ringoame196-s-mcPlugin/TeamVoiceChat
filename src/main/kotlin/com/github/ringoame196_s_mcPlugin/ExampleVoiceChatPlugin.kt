@@ -1,5 +1,7 @@
 package com.github.ringoame196_s_mcPlugin
 
+import com.github.ringoame196_s_mcPlugin.managers.TeamManager
+import com.github.ringoame196_s_mcPlugin.managers.TeamVCManager
 import de.maxhenkel.voicechat.api.VoicechatApi
 import de.maxhenkel.voicechat.api.VoicechatPlugin
 import de.maxhenkel.voicechat.api.events.EventRegistration
