@@ -15,7 +15,7 @@ class ExampleVoiceChatPlugin : VoicechatPlugin {
      * @return the unique ID for this voice chat plugin
      */
     override fun getPluginId(): String {
-        return "SimpleVCTransceiver"
+        return "TeamVoiceChat"
     }
 
     /**
@@ -51,7 +51,7 @@ class ExampleVoiceChatPlugin : VoicechatPlugin {
         }
 
         var c = 0
-        val listenMessage = "${ChatColor.GOLD}[チームVC] ${player.name}が発言中"
+        val listenMessage = "${ChatColor.GOLD}[チームVC] [$teamName]${player.name}が発言中..."
         for (onlinePlayer in Bukkit.getOnlinePlayers()) {
             if (onlinePlayer == player) continue
             if (!TeamManager.isInTeam(teamName, onlinePlayer)) continue
@@ -61,7 +61,7 @@ class ExampleVoiceChatPlugin : VoicechatPlugin {
             c ++
         }
 
-        val speakerMessage = "${ChatColor.YELLOW}[チームVC] ${c}人が聞いています"
+        val speakerMessage = "${ChatColor.YELLOW}[チームVC] ${teamName}チームの${c}人が聞いています"
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, *TextComponent.fromLegacyText(speakerMessage))
     }
 }

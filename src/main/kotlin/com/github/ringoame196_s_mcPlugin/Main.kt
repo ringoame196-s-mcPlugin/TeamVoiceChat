@@ -7,6 +7,8 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
     private val plugin = this
+    private val voicechatPlugin = ExampleVoiceChatPlugin()
+
     override fun onEnable() {
         super.onEnable()
         getCommand(CommandConst.COMMAND_NAME)?.setExecutor(Command())
@@ -14,11 +16,16 @@ class Main : JavaPlugin() {
         val service: BukkitVoicechatService? = server.servicesManager.load(BukkitVoicechatService::class.java)
 
         if (service != null) {
-            val voicechatPlugin = ExampleVoiceChatPlugin()
             service.registerPlugin(voicechatPlugin)
             logger.info("Successfully registered example plugin")
         } else {
             logger.info("Failed to register example plugin")
         }
+    }
+
+    override fun onDisable() {
+        server.servicesManager.unregister(voicechatPlugin)
+        logger.info("Successfully unregistered voice chat broadcast plugin")
+        super.onDisable()
     }
 }
