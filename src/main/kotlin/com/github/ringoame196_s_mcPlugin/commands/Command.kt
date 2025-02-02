@@ -11,7 +11,8 @@ import org.bukkit.entity.Player
 
 class Command() : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
-        if (args.isEmpty()) {
+        // サブコマンドを入力していない または ADMINパーミッションを持っていなければ 切り替え処理を実行
+        if (args.isEmpty() || !sender.hasPermission(CommandConst.ADMIN_PERMISSION)) {
             if (sender is Player) {
                 changeTeamVC(sender)
             } else {
@@ -23,10 +24,6 @@ class Command() : CommandExecutor, TabCompleter {
 
         val subCommand = args[0]
         var target = mutableListOf<Player>()
-
-        if (sender is Player) {
-            target.add(sender)
-        }
 
         if (args.size == 2) {
             target = Bukkit.selectEntities(sender, args[1]).filterIsInstance<Player>().toMutableList()
@@ -89,7 +86,12 @@ class Command() : CommandExecutor, TabCompleter {
     }
 
     override fun onTabComplete(commandSender: CommandSender, command: Command, label: String, args: Array<out String>): MutableList<String>? {
-        return when (args.size) {
+        return if (commandSender.hasPermission(CommandConst.ADMIN_PERMISSION)) adminTabComplete(args.size)
+        else mutableListOf()
+    }
+
+    private fun adminTabComplete(size: Int): MutableList<String> {
+        return when (size) {
             1 -> mutableListOf(CommandConst.JOIN_COMMAND, CommandConst.LEAVE_COMMAND)
             2 -> (Bukkit.getOnlinePlayers().map { it.name } + "@a" + "@p" + "@r" + "@s").toMutableList()
             else -> mutableListOf()
