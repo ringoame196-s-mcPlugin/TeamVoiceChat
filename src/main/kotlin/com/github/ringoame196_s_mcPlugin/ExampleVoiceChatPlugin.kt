@@ -50,13 +50,13 @@ class ExampleVoiceChatPlugin : VoicechatPlugin {
             e.cancel()
         }
 
-        var c = 0
+        var c = 0 // 聞こえている人数
         val listenMessage = "${ChatColor.GOLD}[チームVC] [$teamName]${player.name}が発言中..."
         for (onlinePlayer in Bukkit.getOnlinePlayers()) {
             if (onlinePlayer == player) continue
             if (!TeamManager.isInTeam(teamName, onlinePlayer)) continue
             val onlineConnection = api.getConnectionOf(onlinePlayer.uniqueId) ?: continue
-            api.sendStaticSoundPacketTo(onlineConnection, soundPacket)
+            api.sendStaticSoundPacketTo(onlineConnection, soundPacket) // 声を流す
             onlinePlayer.spigot().sendMessage(ChatMessageType.ACTION_BAR, *TextComponent.fromLegacyText(listenMessage))
             c ++
         }
