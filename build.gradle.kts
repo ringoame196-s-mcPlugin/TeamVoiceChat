@@ -40,6 +40,7 @@ configure<BukkitPluginDescription> {
     apiVersion = "1." + pluginVersion.split(".")[1]
     author = "ringoame196_s_mcPlugin"
     website = "https://github.com/ringoame196-s-mcPlugin"
+    depend = listOf("voicechat")
 
     commands {
         register("teamvc") {
@@ -51,7 +52,11 @@ configure<BukkitPluginDescription> {
 
     permissions{
         register("TeamVoiceChat.teamvc") {
-            description = "itemNameコマンドの実行を許可する"
+            description = "teamvcコマンドの実行を許可する"
+            default = BukkitPluginDescription.Permission.Default.OP // TRUE, FALSE, OP or NOT_OP
+        }
+        register("TeamVoiceChat.admin") {
+            description = "teamvcの管理コマンドの実行を許可する"
             default = BukkitPluginDescription.Permission.Default.OP // TRUE, FALSE, OP or NOT_OP
         }
     }
