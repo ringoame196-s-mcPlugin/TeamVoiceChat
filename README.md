@@ -3,6 +3,10 @@
 ## プラグイン説明
 Simple Voice Chat MODを使用してTeamVCできるプラグイン
 
+
+https://github.com/user-attachments/assets/b0d81da4-cbaa-4b04-bf5b-7d8ddecde2fa
+
+
 ## プラグインダウンロード
 [ダウンロードリンク](https://github.com/ringoame196-s-mcPlugin/TeamVoiceChat/releases/latest)
 
