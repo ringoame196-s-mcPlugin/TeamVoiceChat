@@ -1,6 +1,6 @@
 package com.github.ringoame196_s_mcPlugin.commands
 
-import com.github.ringoame196_s_mcPlugin.TeamVCManager
+import com.github.ringoame196_s_mcPlugin.managers.TeamVCManager
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.command.Command
@@ -68,7 +68,7 @@ class Command(private val plugin: Plugin) : CommandExecutor, TabCompleter {
 
     private fun joinTeamVC(player: Player) {
         if (TeamVCManager.isContainsTeamVC(player)) return
-        val message = "${ChatColor.YELLOW}TeamVCに追加されました"
+        val message = "${ChatColor.YELLOW}TeamVCがONになりました"
         player.sendMessage(message)
         TeamVCManager.addContainsTeamVC(player)
     }
@@ -76,7 +76,7 @@ class Command(private val plugin: Plugin) : CommandExecutor, TabCompleter {
     private fun joinTeamVC(sender: CommandSender, players: List<Player>) {
         if (!isTargetConfigured(sender, players)) return
         for (player in players) {
-            val message = "${ChatColor.GOLD}${player.name}を TeamVCに追加しました"
+            val message = "${ChatColor.GOLD}${player.name}のTeamVCをONにしました"
             sender.sendMessage(message)
             joinTeamVC(player)
         }
@@ -84,7 +84,7 @@ class Command(private val plugin: Plugin) : CommandExecutor, TabCompleter {
 
     private fun leaveTeamVC(player: Player) {
         if (!TeamVCManager.isContainsTeamVC(player)) return
-        val message = "${ChatColor.RED}TeamVCに削除されました"
+        val message = "${ChatColor.RED}TeamVCがOFFになりました"
         player.sendMessage(message)
         TeamVCManager.removeContainsTeamVC(player)
     }
@@ -92,7 +92,7 @@ class Command(private val plugin: Plugin) : CommandExecutor, TabCompleter {
     private fun leaveTeamVC(sender: CommandSender, players: List<Player>) {
         if (!isTargetConfigured(sender, players)) return
         for (player in players) {
-            val message = "${ChatColor.GOLD}${player.name}を TeamVCに削除しました"
+            val message = "${ChatColor.GOLD}${player.name}のTeamVCをOFFにしました"
             sender.sendMessage(message)
             leaveTeamVC(player)
         }
