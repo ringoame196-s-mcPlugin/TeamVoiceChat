@@ -6,7 +6,6 @@ import de.maxhenkel.voicechat.api.BukkitVoicechatService
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
-    private val plugin = this
     private val voicechatPlugin = ExampleVoiceChatPlugin()
 
     override fun onEnable() {
